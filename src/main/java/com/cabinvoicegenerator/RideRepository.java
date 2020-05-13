@@ -8,12 +8,13 @@ import java.util.Map;
 public class RideRepository {
     Map<String, ArrayList<Ride>> userRides = null;
 
-    public RideRepository() {
+    public RideRepository()
+    {
         this.userRides = new HashMap<>();
     }
 
     public void addRides(String userId, Ride[] rides) {
-        this.userRides.put(userId,new ArrayList<>(Arrays.asList(rides)));
+            this.userRides.put(userId, new ArrayList<>(Arrays.asList(rides)));
     }
 
     public Ride[] getRides(String userId) {
