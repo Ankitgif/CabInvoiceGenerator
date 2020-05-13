@@ -15,19 +15,16 @@ public class InvoiceService {
         this.rideRepository = new RideRepository();
     }
 
-    public double calculateFare(double distance, int time, String rideType) {
-        if (rideType == "normal") {
+    public double calculateFare(double distance, int time, Ride.RideType type) {
+        if (type.equals(Ride.RideType.normal)) {
             double totalFare = distance * MINIMUM_COST_PER_KILOMETER + time * COST_PER_TIME;
             return Math.max(totalFare, MINIMUM_FARE);
-        } else{
+        } if (type.equals(Ride.RideType.premium)){
             double totalFare = distance * MINIMUM_COST_PER_KILOMETER_PREMIUM + time * COST_PER_TIME_PRIMIUM;
             return Math.max(totalFare, MINIMUM_FARE_PREMIUM);
         }
+        return 0;
     }
-//    public double calculateFare(double distance, int time, String rideType) {
-//        double totalFare = distance * MINIMUM_COST_PER_KILOMETER_PREMIUM + time * COST_PER_TIME_PRIMIUM;
-//        return Math.max(totalFare, MINIMUM_FARE_PREMIUM);
-//    }
 
     public InvoiceSummary calculateFare(Ride[] rides) {
         double totalFare = 0;
