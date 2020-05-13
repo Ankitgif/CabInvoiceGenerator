@@ -1,6 +1,8 @@
 package com.cabinvoicegenerator;
 
-public class Ride {
+import java.util.ArrayList;
+
+public class Ride extends ArrayList<Ride> {
     public final double distance;
     public final int time;
 
