@@ -35,7 +35,7 @@ public class InvoiceServiceTest {
         Assert.assertEquals(expectedinvoiceSummary,summary);
     }
     @Test
-    public void givenUserIdAndRides_ShouldReturnInvoiceSummary(){
+    public void givenUserIdAndRides_ShouldReturnInvoiceSummary() throws CabInvoiceException {
         String userId = "abc@.com";
         Ride[] rides = {new Ride(2.0, 5),
                 new Ride(0.1, 1)
@@ -45,5 +45,18 @@ public class InvoiceServiceTest {
         InvoiceSummary expectedinvoiceSummary = new InvoiceSummary(2, 30);
         Assert.assertEquals(expectedinvoiceSummary,summary);
 
+    }
+    @Test
+    public void givenNullUserIdAndRides_ShouldThrowCustomException() throws CabInvoiceException{
+        String userId = null;
+        Ride[] rides = {new Ride(2.0, 5),
+                new Ride(0.1, 1)
+        };
+        try {
+            invoiceService.addRides(userId, rides);
+            InvoiceSummary summary = invoiceService.getInvoiceSummary(userId);
+        }catch (CabInvoiceException exception){
+            Assert.assertEquals("UserId cant be Null",exception.getMessage());
+        }
     }
 }
