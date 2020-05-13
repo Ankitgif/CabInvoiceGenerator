@@ -59,4 +59,21 @@ public class InvoiceServiceTest {
             Assert.assertEquals("UserId cant be Null",exception.getMessage());
         }
     }
+    @Test
+    public void givenMultipleRidesArrays_ShouldReturnInvoiceSummary() throws CabInvoiceException {
+        String userId = "ankit@.com";
+        Ride[] rides1 = {
+                new Ride(2.0, 5),
+                new Ride(0.1, 1)
+        };
+        invoiceService.addRides(userId, rides1);
+        Ride[] rides2 = {
+                new Ride(2.0, 5),
+                new Ride(0.1, 1),
+        };
+        invoiceService.addRides(userId, rides2);
+        InvoiceSummary summary = invoiceService.getInvoiceSummary(userId);
+        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(4, 60);
+        Assert.assertEquals(expectedInvoiceSummary, summary);
+    }
 }
