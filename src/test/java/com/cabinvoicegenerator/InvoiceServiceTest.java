@@ -76,4 +76,24 @@ public class InvoiceServiceTest {
         InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(4, 60);
         Assert.assertEquals(expectedInvoiceSummary, summary);
     }
+    @Test
+    public void givenMultipleUserRidesArrays_ShouldReturnInvoiceSummary() throws CabInvoiceException {
+        String userId1 = "ankit@.com";
+        Ride[] rides1 = {
+                new Ride(2.0, 5),
+                new Ride(0.1, 1)
+        };
+        invoiceService.addRides(userId1, rides1);
+        String userId2 = "Biru@.com";
+        Ride[] rides2 = {
+                new Ride(2.0, 5),
+                new Ride(0.1, 1),
+        };
+        invoiceService.addRides(userId2, rides2);
+        InvoiceSummary summary1 = invoiceService.getInvoiceSummary(userId1);
+        InvoiceSummary summary2 = invoiceService.getInvoiceSummary(userId2);
+        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 30);
+        Assert.assertEquals(expectedInvoiceSummary, summary1);
+        Assert.assertEquals(expectedInvoiceSummary, summary2);
+    }
 }
