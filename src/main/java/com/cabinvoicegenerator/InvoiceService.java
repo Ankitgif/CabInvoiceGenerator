@@ -25,11 +25,15 @@ public class InvoiceService {
         return new InvoiceSummary(rides.length,totalFare);
     }
 
-    public void addRides(String userId, Ride[] rides) {
-        rideRepository.addRides(userId,rides);
+    public void addRides(String userId, Ride[] rides) throws CabInvoiceException {
+        if (userId == null)
+            throw new CabInvoiceException("UserId cant be Null", CabInvoiceException.ExceptionType.USER_CANT_BE_NULL);
+        rideRepository.addRides(userId, rides);
     }
 
-    public InvoiceSummary getInvoiceSummary(String userId) {
+    public InvoiceSummary getInvoiceSummary(String userId) throws CabInvoiceException {
+        if (userId == null)
+            throw new CabInvoiceException("UserId cant be Null", CabInvoiceException.ExceptionType.USER_CANT_BE_NULL);
         return this.calculateFare(rideRepository.getRides(userId));
     }
 }
