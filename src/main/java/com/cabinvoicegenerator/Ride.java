@@ -1,16 +1,20 @@
 package com.cabinvoicegenerator;
 
-import java.util.ArrayList;
+public class Ride   {
 
-public class Ride extends ArrayList<Ride> {
+    private final double distance;
+    private final int time;
+    private final CabRide type;
 
-    public final double distance;
-    public final int time;
-    public CabRide cabRide;
-
-    public Ride(double distance, int time, CabRide cabRide) {
+    public Ride(double distance, int time, CabRide type) {
         this.distance = distance;
         this.time = time;
-        this.cabRide = cabRide;
+        this.type = type;
     }
+
+    public double getDistanceTime() {
+        return type.calculateFare(distance,time);
+    }
+
+
 }
