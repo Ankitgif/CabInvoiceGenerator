@@ -8,15 +8,15 @@ public class InvoiceService {
         this.rideRepository = new RideRepository();
     }
 
-    public double calculateFare(double distance, int time, CabRide type) {
-        Ride ride = new Ride(distance, time, type);
-        return type.calculateFare(ride);
-    }
+      public double calculateFare(double distance, int time, CabRide type) {
+          Ride ride = new Ride(distance, time, type);
+            return type.calculateFare(distance,time);
+      }
 
     public InvoiceSummary calculateFare(Ride[] rides) {
         double totalFare = 0;
         for (Ride ride : rides) {
-            totalFare += ride.cabRide.calculateFare(ride);
+            totalFare += ride.getDistanceTime();
         }
         return new InvoiceSummary(rides.length, totalFare);
     }
