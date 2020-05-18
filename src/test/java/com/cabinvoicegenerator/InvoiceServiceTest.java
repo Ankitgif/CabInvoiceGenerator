@@ -19,7 +19,6 @@ public class InvoiceServiceTest {
         double fare = invoiceService.calculateFare(distance, time, CabRide.NORMAL);
         Assert.assertEquals(25, fare, 0.0);
     }
-
     @Test
     public void givenLessDistanceOrTime_ShouldReturnMinFare() {
         double distance = 0.1;
