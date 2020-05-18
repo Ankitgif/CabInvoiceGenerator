@@ -13,10 +13,11 @@ public enum CabRide {
         this.minFarePerRide = minFarePerRide;
     }
 
-    public double calculateFare(Ride ride) {
-        double rideCost = ride.distance * costPerKm + ride.time * costPerMin;
+    public double calculateFare(double distance,int time){
+        double rideCost = distance * costPerKm + time * costPerMin;
         return Math.max(rideCost, minFarePerRide);
     }
+
 }
 
 
