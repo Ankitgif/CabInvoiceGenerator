@@ -1,17 +1,21 @@
 package com.cabinvoicegenerator;
 
-public class InvoiceService {
+public class InvoiceService implements IInvoiceService {
 
-    private RideRepository rideRepository;
+    private IRideRepository rideRepository;
 
     public InvoiceService() {
+
+    }
+
+    public InvoiceService(IRideRepository rideRepository) {
         this.rideRepository = new RideRepository();
     }
 
-      public double calculateFare(double distance, int time, CabRide type) {
-          Ride ride = new Ride(distance, time, type);
-            return type.calculateFare(distance,time);
-      }
+    public double calculateFare(double distance, int time, CabRide type) {
+        Ride ride = new Ride(distance, time, type);
+        return type.calculateFare(distance, time);
+    }
 
     public InvoiceSummary calculateFare(Ride[] rides) {
         double totalFare = 0;
