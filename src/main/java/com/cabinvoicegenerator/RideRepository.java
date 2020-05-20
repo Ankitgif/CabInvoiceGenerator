@@ -2,7 +2,7 @@ package com.cabinvoicegenerator;
 
 import java.util.*;
 
-public class RideRepository {
+public class RideRepository implements IRideRepository {
     Map<String, ArrayList<Ride>> userRides;
 
     public RideRepository() {
