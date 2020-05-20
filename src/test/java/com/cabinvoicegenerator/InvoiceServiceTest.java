@@ -3,14 +3,21 @@ package com.cabinvoicegenerator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+
+import java.util.ArrayList;
 
 public class InvoiceServiceTest {
+
     InvoiceService invoiceService = null;
 
     @Before
     public void setUp() throws Exception {
         invoiceService = new InvoiceService();
     }
+
+    @Mock
+    RideRepository rideRepository;
 
     @Test
     public void givenDistanceAndTime_ShouldReturnTotalFare() {
@@ -19,6 +26,7 @@ public class InvoiceServiceTest {
         double fare = invoiceService.calculateFare(distance, time, CabRide.NORMAL);
         Assert.assertEquals(25, fare, 0.0);
     }
+
     @Test
     public void givenLessDistanceOrTime_ShouldReturnMinFare() {
         double distance = 0.1;
@@ -43,6 +51,7 @@ public class InvoiceServiceTest {
         Ride[] rides = {new Ride(2.0, 5, CabRide.NORMAL),
                 new Ride(0.1, 1, CabRide.NORMAL)
         };
+        invoiceService = new InvoiceService(new RideRepository());
         invoiceService.addRides(userId, rides);
         InvoiceSummary summary = invoiceService.getInvoiceSummary(userId);
         InvoiceSummary expectedinvoiceSummary = new InvoiceSummary(2, 30);
@@ -57,6 +66,7 @@ public class InvoiceServiceTest {
                 new Ride(0.1, 1, CabRide.NORMAL)
         };
         try {
+            invoiceService = new InvoiceService(new RideRepository());
             invoiceService.addRides(userId, rides);
             InvoiceSummary summary = invoiceService.getInvoiceSummary(userId);
         } catch (CabInvoiceException exception) {
@@ -71,6 +81,7 @@ public class InvoiceServiceTest {
                 new Ride(2.0, 5, CabRide.NORMAL),
                 new Ride(0.1, 1, CabRide.NORMAL)
         };
+        invoiceService = new InvoiceService(new RideRepository());
         invoiceService.addRides(userId, rides1);
         Ride[] rides2 = {
                 new Ride(2.0, 5, CabRide.NORMAL),
@@ -89,6 +100,7 @@ public class InvoiceServiceTest {
                 new Ride(2.0, 5, CabRide.NORMAL),
                 new Ride(0.1, 1, CabRide.NORMAL)
         };
+        invoiceService = new InvoiceService(new RideRepository());
         invoiceService.addRides(userId1, rides1);
         String userId2 = "Biru@.com";
         Ride[] rides2 = {
@@ -118,4 +130,5 @@ public class InvoiceServiceTest {
         double fare = invoiceService.calculateFare(distance, time, CabRide.PREMIUM);
         Assert.assertEquals(20, fare, 0.0);
     }
+
 }
